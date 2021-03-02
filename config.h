@@ -2,7 +2,7 @@
 #include "fibonacci.c"
 
 /* appearance */
-static const unsigned int borderpx  = 5;        /* border pixel of windows */
+static const unsigned int borderpx  = 2;        /* border pixel of windows */
 static const unsigned int gappx     = 15;        /* gaps between windows */
 static const unsigned int gappih    = 20;       /* horiz inner gap between windows */
 static const unsigned int gappiv    = 20;       /* vert inner gap between windows */
@@ -19,8 +19,9 @@ static const char col_gray2[]       = "#444444";
 static const char col_gray3[]       = "#bbbbbb";
 static const char col_gray4[]       = "#eeeeee";
 static const char col_cyan[]        = "#005577";
-//static const char col_juni[]        = "#073e19";
-static const char col_juni[]        = "#005577";
+static const char col_juni[]        = "#073e19";
+//static const char col_juni[]        = "#005577";
+//static const char col_juni[]        = "#091935";
 static const unsigned int baralpha = 0xd0;
 static const unsigned int borderalpha = OPAQUE;
 
@@ -37,7 +38,7 @@ static const unsigned int alphas[][3]      = {
 
 /* tagging */
 //static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
-static const char *tags[] = { "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX" };
+static const char *tags[] = { "I", "II", "III", "IV", "V" };
 
 static const Rule rules[] = {
 	/* xprop(1):
@@ -84,7 +85,7 @@ static const char *upvol[]   = { "/usr/bin/pactl", "set-sink-volume", "0", "+5%"
 static const char *downvol[] = { "/usr/bin/pactl", "set-sink-volume", "0", "-5%",     NULL };
 static const char *upbright[] = { "/usr/bin/brightnessctl", "set", "10%+" };
 static const char *downbright[] = { "/usr/bin/brightnessctl", "set", "10%-" };
-static const char *killdwm[] = {"/home/junikim/scripts/quit.dwm.sh", NULL};
+static const char *killdwm[] = {"/home/junikim/scripts/quit.sh", NULL};
 static const char *pass[] = {"/usr/bin/passmenu", NULL};
 
 static Key keys[] = {
@@ -129,7 +130,7 @@ static Key keys[] = {
 	TAGKEYS(                        XK_8,                      7)
 	TAGKEYS(                        XK_9,                      8)
 	{ MODKEY|ShiftMask,             XK_e,      spawn,           {.v = killdwm} },
-    { MODKEY,             XK_n,       spawn,          {.v = pass}}
+    //{ MODKEY,             XK_n,       spawn,          {.v = pass}}
 };
 
 /* button definitions */
