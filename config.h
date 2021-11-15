@@ -2,7 +2,7 @@
 #include "fibonacci.c"
 
 /* appearance */
-static const unsigned int borderpx  = 2;        /* border pixel of windows */
+static const unsigned int borderpx  = 4;        /* border pixel of windows */
 static const unsigned int gappx     = 15;        /* gaps between windows */
 static const unsigned int gappih    = 20;       /* horiz inner gap between windows */
 static const unsigned int gappiv    = 20;       /* vert inner gap between windows */
@@ -47,7 +47,7 @@ static const Rule rules[] = {
 	 */
 	/* class      instance    title       tags mask     isfloating   monitor */
 	{ "Gimp",     NULL,       NULL,       0,            1,           -1 },
-	{ "spotify",  NULL,       NULL,       1 << 6,       0,           -1 },
+	{ "Spotify",  NULL,       NULL,       1 << 6,       0,           -1 },
 };
 
 /* layout(s) */
@@ -85,7 +85,7 @@ static const char *upvol[]   = { "/usr/bin/pactl", "set-sink-volume", "0", "+5%"
 static const char *downvol[] = { "/usr/bin/pactl", "set-sink-volume", "0", "-5%",     NULL };
 static const char *upbright[] = { "/usr/bin/brightnessctl", "set", "10%+" };
 static const char *downbright[] = { "/usr/bin/brightnessctl", "set", "10%-" };
-static const char *killdwm[] = {"/home/junikim/scripts/quit.sh", NULL};
+static const char *killdwm[] = {"/home/junikim/scripts/bin/quit.sh", NULL};
 static const char *pass[] = {"/usr/bin/passmenu", NULL};
 
 static Key keys[] = {
