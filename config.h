@@ -11,8 +11,8 @@ static const unsigned int gappov    = 20;       /* vert outer gap between window
 static const int smartgaps          = 0;        /* 1 means no outer gap when there is only one window */
 static const unsigned int snap      = 32;       /* snap pixel */
 static const int showbar            = 1;        /* 0 means no bar */
-static const int topbar             = 1;        /* 0 means bottom bar */
-static const char *fonts[]          = { "Fira Code:size=12" };
+static const int topbar             = 0;        /* 0 means bottom bar */
+static const char *fonts[]          = { "Fira Code:size=14", "nerd-fonts:size=14" };
 static const char dmenufont[]       = "Fira Code:size=12";
 static const char col_gray1[]       = "#222222";
 static const char col_gray2[]       = "#444444";
@@ -20,6 +20,9 @@ static const char col_gray3[]       = "#bbbbbb";
 static const char col_gray4[]       = "#eeeeee";
 static const char col_cyan[]        = "#005577";
 static const char col_juni[]        = "#073e19";
+static const char col_beige[]        = "#cec0af";
+static const char col_darkblue[]        = "#242e35";
+static const char col_pink[]        = "#f0cad5";
 //static const char col_juni[]        = "#005577";
 //static const char col_juni[]        = "#091935";
 static const unsigned int baralpha = 0xd0;
@@ -27,8 +30,8 @@ static const unsigned int borderalpha = OPAQUE;
 
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
-	[SchemeNorm] = { col_gray3, col_gray1, col_gray2 },
-	[SchemeSel]  = { col_gray4, col_juni,  col_juni  },
+	[SchemeNorm] = { col_gray3, col_darkblue, col_gray2 },
+	[SchemeSel]  = { col_gray1, col_beige,  col_beige  },
 };
 static const unsigned int alphas[][3]      = {
 	/*               fg      bg        border     */
@@ -38,7 +41,7 @@ static const unsigned int alphas[][3]      = {
 
 /* tagging */
 //static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
-static const char *tags[] = { "1", "2", "3", "4", "5" , "Mus"};
+static const char *tags[] = { "1", "2", "3", "4", "5" , "6", ""};
 
 static const Rule rules[] = {
 	/* xprop(1):
@@ -47,7 +50,6 @@ static const Rule rules[] = {
 	 */
 	/* class      instance    title       tags mask     isfloating   monitor */
 	{ "Gimp",     NULL,       NULL,       0,            1,           -1 },
-	{ "Spotify",  NULL,       NULL,       1 << 6,       0,           -1 },
 };
 
 /* layout(s) */
@@ -78,7 +80,7 @@ static const Layout layouts[] = {
 
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
-static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_juni, "-sf", col_gray4, NULL };
+static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_darkblue, "-sf", col_gray4, NULL };
 static const char *termcmd[]  = { "/usr/bin/alacritty", NULL };
 static const char *browser[]  = { "/usr/bin/brave", NULL };
 static const char *upvol[]   = { "/usr/bin/pactl", "set-sink-volume", "0", "+5%",     NULL };
