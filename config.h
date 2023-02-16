@@ -43,7 +43,7 @@ static const unsigned int alphas[][3]      = {
 /* tagging */
 //static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
 //static const char *tags[] = { "1", "2", "3", "4", "5" , "6", ""};
-static const char *tags[] = { "拾", "爵", "", "", "", "", "7", "8"};
+static const char *tags[] = { "", "爵", "", "", "", "", "", "8", "9"};
 
 static const Rule rules[] = {
   /* xprop(1):
@@ -52,27 +52,37 @@ static const Rule rules[] = {
    */
   /* class      instance    title       tags mask     isfloating   monitor */
   //{ "Gimp",     NULL,       NULL,       0,            1,           -1 },
-  { "Brave-browser",     NULL,       NULL,       1<<1,            0,           -1 },
+  { "Alacritty",      NULL,       NULL,         1<<0,            0,           -1 },
+  { "Brave-browser",  NULL,       NULL,         1<<1,            0,           -1 },
+  { "Tor Browser",    NULL,       NULL,         1<<1,            0,           -1 },
+  { "torbrowser",     NULL,       NULL,         1<<1,            0,           -1 },
+  { "firefox",        NULL,       NULL,         1<<1,            0,           -1 },
 
   // social media
-  { "discord",     NULL,       NULL,       1<<3,            0,           -1 },
-  { "Skype",     NULL,       NULL,       1<<3,            0,           -1 },
-  { "zoom",     NULL,       NULL,       1<<3,            0,           -1 },
-  { "zoom",     NULL,       "Chat",       1<<3,            1,           -1 },
-  { "zoom",     NULL,       "Zoom Cloud Meetings",       1<<3,            1,           -1 },
-  { "Signal",     "signal",       NULL,       1<<3,            1,           -1 },
-  { NULL,     NULL,       "WhatsApp",       1<<3,            1,           -1 },
-  { "GStreamer",     NULL,       NULL,       1<<3,            0,           -1 },
-
+  { "discord",        NULL,       NULL,         1<<3,            0,           -1 },
+  { "Skype",          NULL,       NULL,         1<<3,            0,           -1 },
+  { "zoom",           NULL,       NULL,         1<<3,            0,           -1 },
+  { "zoom",           NULL,       "Chat",       1<<3,            1,           -1 },
+  { "zoom",           NULL,       "Meetings",   1<<3,            1,           -1 },
+  { "Signal",         "signal",   NULL,         1<<3,            0,           -1 },
+  { NULL,             NULL,       "WhatsApp",   1<<3,            0,           -1 },
+  { "GStreamer",      NULL,       NULL,         1<<3,            0,           -1 },
+  
   // Programming
-  { "Code",     NULL,       NULL,       1<<2,            0,           -1 },
-  { "jetbrains",     NULL,       NULL,       1<<2,            0,           -1 },
+  { "Code",           NULL,       NULL,         1<<2,            0,           -1 },
+  { "jetbrains",      NULL,       NULL,         1<<2,            0,           -1 },
+  { "sublime",        NULL,       NULL,         1<<2,            0,           -1 },
+  { "Pulsar",         NULL,       NULL,         1<<2,            0,           -1 },
 
   // Virtualization
-  { "Virt-manager",     NULL,       NULL,       1<<4,            0,           -1 },
+  { "Virt-manager",   NULL,       NULL,         1<<4,            0,           -1 },
 
   // Music
-  { "cantata",     NULL,       NULL,       1<<5,            0,           -1 },
+  { "cantata",        NULL,       NULL,         1<<5,            0,           -1 },
+  { "youtube-music",  NULL,       NULL,         1<<5,            0,           -1 },
+
+  { "Blueberry.py",   NULL,       NULL,         1<<6,            0,           -1 },
+  { "control-center", NULL,       NULL,         1<<6,            0,           -1 },
 
 };
 
@@ -108,6 +118,7 @@ static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() 
 static const char *dmenucmd[] = { "rofi", "-show", "drun" };
 //static const char *dmenucmd[] = { "rofi", "-show", "drun", NULL };
 static const char *termcmd[]  = { "/usr/bin/alacritty", NULL };
+static const char *tmuxcmd[]  = { "/usr/bin/alacritty", "-e", "/usr/bin/tmux", NULL };
 static const char *browser[]  = { "/usr/bin/brave-browser", NULL };
 static const char *upvol[]   = { "/usr/bin/pactl", "set-sink-volume", "0", "+5%",     NULL };
 static const char *downvol[] = { "/usr/bin/pactl", "set-sink-volume", "0", "-5%",     NULL };
@@ -119,43 +130,39 @@ static const char *join[] = {"/usr/local/bin/mt", NULL};
 
 static Key keys[] = {
   /* modifier                     key        function        argument */
-  { MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
-  { MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
+  { MODKEY,                       XK_p,       spawn,          {.v = dmenucmd } },
+  { MODKEY|ShiftMask,             XK_Return,  spawn,          {.v = tmuxcmd } },
+  { MODKEY|ShiftMask,             XK_a,       spawn,          {.v = termcmd} },
   { MODKEY|ShiftMask,             XK_w,       spawn,          {.v = browser } },
   { MODKEY,                       XK_e,       spawn,          {.v = join } },
-  { MODKEY,                       XK_b,      togglebar,      {0} },
-  { MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
-  { MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
-  { MODKEY,                       XK_i,      incnmaster,     {.i = +1 } },
-  { MODKEY,                       XK_d,      incnmaster,     {.i = -1 } },
-  { MODKEY,                       XK_h,      setmfact,       {.f = -0.05} },
-  { MODKEY,                       XK_l,      setmfact,       {.f = +0.05} },
-  { MODKEY,                       XK_Return, zoom,           {0} },
-  { MODKEY,                       XK_Tab,    view,           {0} },
-  { MODKEY|ShiftMask,             XK_q,      killclient,     {0} },
-  { MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
-  { MODKEY,                       XK_f,      setlayout,      {.v = &layouts[1]} },
-  { MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
+  { MODKEY,                       XK_b,       togglebar,      {0} },
+  { MODKEY,                       XK_j,       focusstack,     {.i = +1 } },
+  { MODKEY,                       XK_k,       focusstack,     {.i = -1 } },
+  { MODKEY,                       XK_i,       incnmaster,     {.i = +1 } },
+  { MODKEY,                       XK_d,       incnmaster,     {.i = -1 } },
+  { MODKEY,                       XK_h,       setmfact,       {.f = -0.05} },
+  { MODKEY,                       XK_l,       setmfact,       {.f = +0.05} },
+  { MODKEY,                       XK_Return,  zoom,           {0} },
+  { MODKEY,                       XK_Tab,     view,           {0} },
+  { MODKEY|ShiftMask,             XK_q,       killclient,     {0} },
+  { MODKEY,                       XK_t,       setlayout,      {.v = &layouts[0]} },
+  { MODKEY,                       XK_f,       setlayout,      {.v = &layouts[1]} },
+  { MODKEY,                       XK_m,       setlayout,      {.v = &layouts[2]} },
   //{ MODKEY,                       XK_space,  setlayout,      {0} },
-  { MODKEY,                       XK_space,      spawn,          {.v = dmenucmd } },
-  { MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
-  { MODKEY,                       XK_0,      view,           {.ui = ~0 } },
-  { MODKEY|ShiftMask,             XK_0,      tag,            {.ui = ~0 } },
-  { MODKEY,                       XK_comma,  focusmon,       {.i = -1 } },
-  { MODKEY,                       XK_period, focusmon,       {.i = +1 } },
-  { MODKEY|ShiftMask,             XK_comma,  tagmon,         {.i = -1 } },
-  { MODKEY|ShiftMask,             XK_period, tagmon,         {.i = +1 } },
-  //{ ALT,                       XK_Down,      spawn,         {.v =  downvol } },
-  //{ ALT,                       XK_Up,      spawn,         {.v =  upvol } },
-  //
-  //{ ALT,                       XK_Left,      spawn,         {.v =  downbright } },
-  //{ ALT,                       XK_Right,      spawn,         {.v =  upbright } },
+  { MODKEY,                       XK_space,   spawn,          {.v = dmenucmd } },
+  { MODKEY|ShiftMask,             XK_space,   togglefloating, {0} },
+  { MODKEY,                       XK_0,       view,           {.ui = ~0 } },
+  { MODKEY|ShiftMask,             XK_0,       tag,            {.ui = ~0 } },
+  { MODKEY,                       XK_comma,   focusmon,       {.i = -1 } },
+  { MODKEY,                       XK_period,  focusmon,       {.i = +1 } },
+  { MODKEY|ShiftMask,             XK_comma,   tagmon,         {.i = -1 } },
+  { MODKEY|ShiftMask,             XK_period,  tagmon,         {.i = +1 } },
 
-	{ 0,                       XF86XK_AudioMute, spawn, {.v = mutevol } },
-	{ 0,                       XF86XK_AudioRaiseVolume, spawn, {.v = upvol   } },
-	{ 0,                       XF86XK_AudioLowerVolume, spawn, {.v = downvol } },
-  { 0,				XF86XK_MonBrightnessUp,		spawn,	{.v = upbright} },
-	{ 0,				XF86XK_MonBrightnessDown,	spawn,	{.v = downbright} },
+	{ 0,                            XF86XK_AudioMute,           spawn,  {.v = mutevol } },
+	{ 0,                            XF86XK_AudioRaiseVolume,    spawn,  {.v = upvol   } },
+	{ 0,                            XF86XK_AudioLowerVolume,    spawn,  {.v = downvol } },
+  { 0,                            XF86XK_MonBrightnessUp,     spawn,  {.v = upbright} },
+	{ 0,                            XF86XK_MonBrightnessDown,   spawn,  {.v = downbright} },
 
   { MODKEY,                       XK_r,      setlayout,      {.v = &layouts[3]} },
   { MODKEY|ShiftMask,             XK_r,      setlayout,      {.v = &layouts[4]} },
