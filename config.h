@@ -43,7 +43,7 @@ static const unsigned int alphas[][3]      = {
 /* tagging */
 //static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
 //static const char *tags[] = { "1", "2", "3", "4", "5" , "6", ""};
-static const char *tags[] = { "", "爵", "", "", "", "", "", "8", "9"};
+static const char *tags[] = { "", "爵", "", "", "", "", "", "󰙯", "9"};
 
 static const Rule rules[] = {
   /* xprop(1):
@@ -59,7 +59,7 @@ static const Rule rules[] = {
   { "firefox",        NULL,       NULL,         1<<1,            0,           -1 },
 
   // social media
-  { "discord",        NULL,       NULL,         1<<3,            0,           -1 },
+  { "discord",        NULL,       NULL,         1<<7,            0,           -1 },
   { "Skype",          NULL,       NULL,         1<<3,            0,           -1 },
   { "zoom",           NULL,       NULL,         1<<3,            0,           -1 },
   { "zoom",           NULL,       "Chat",       1<<3,            1,           -1 },
@@ -73,6 +73,7 @@ static const Rule rules[] = {
   { "jetbrains",      NULL,       NULL,         1<<2,            0,           -1 },
   { "sublime",        NULL,       NULL,         1<<2,            0,           -1 },
   { "Pulsar",         NULL,       NULL,         1<<2,            0,           -1 },
+  { "geogebra",         NULL,       NULL,         1<<2,            0,           -1 },
 
   // Virtualization
   { "Virt-manager",   NULL,       NULL,         1<<4,            0,           -1 },
@@ -93,9 +94,9 @@ static const int resizehints = 1;    /* 1 means respect size hints in tiled resi
 
 static const Layout layouts[] = {
   /* symbol     arrange function */
+  { "[M]",      monocle },
   { "[]=",      tile },    /* first entry is default */
   { "><>",      NULL },    /* no layout function means floating behavior */
-  { "[M]",      monocle },
   { "(@)",                spiral },
   { "[\\]",               dwindle },
 };
@@ -119,7 +120,7 @@ static const char *dmenucmd[] = { "rofi", "-show", "drun" };
 //static const char *dmenucmd[] = { "rofi", "-show", "drun", NULL };
 static const char *termcmd[]  = { "/usr/bin/alacritty", NULL };
 static const char *tmuxcmd[]  = { "/usr/bin/alacritty", "-e", "/usr/bin/tmux", NULL };
-static const char *browser[]  = { "/usr/bin/brave-browser", NULL };
+static const char *browser[]  = { "/usr/bin/firefox", NULL };
 static const char *upvol[]   = { "/usr/bin/pactl", "set-sink-volume", "0", "+5%",     NULL };
 static const char *downvol[] = { "/usr/bin/pactl", "set-sink-volume", "0", "-5%",     NULL };
 static const char *mutevol[] = { "/usr/bin/pactl", "set-sink-mute",   "0", "toggle",  NULL };
@@ -127,6 +128,7 @@ static const char *upbright[] = { "/usr/bin/brightnessctl", "set", "10%+" };
 static const char *downbright[] = { "/usr/bin/brightnessctl", "set", "10%-" };
 static const char *killdwm[] = {"/home/junikim/.local/bin/quit.sh", NULL};
 static const char *join[] = {"/usr/local/bin/mt", NULL};
+static const char *toggle[] = {"/usr/bin/mpc", "toggle", NULL};
 
 static Key keys[] = {
   /* modifier                     key        function        argument */
@@ -145,9 +147,9 @@ static Key keys[] = {
   { MODKEY,                       XK_Return,  zoom,           {0} },
   { MODKEY,                       XK_Tab,     view,           {0} },
   { MODKEY|ShiftMask,             XK_q,       killclient,     {0} },
-  { MODKEY,                       XK_t,       setlayout,      {.v = &layouts[0]} },
-  { MODKEY,                       XK_f,       setlayout,      {.v = &layouts[1]} },
-  { MODKEY,                       XK_m,       setlayout,      {.v = &layouts[2]} },
+  { MODKEY,                       XK_m,       setlayout,      {.v = &layouts[0]} },
+  { MODKEY,                       XK_t,       setlayout,      {.v = &layouts[1]} },
+  { MODKEY,                       XK_f,       setlayout,      {.v = &layouts[2]} },
   //{ MODKEY,                       XK_space,  setlayout,      {0} },
   { MODKEY,                       XK_space,   spawn,          {.v = dmenucmd } },
   { MODKEY|ShiftMask,             XK_space,   togglefloating, {0} },
@@ -163,6 +165,7 @@ static Key keys[] = {
 	{ 0,                            XF86XK_AudioLowerVolume,    spawn,  {.v = downvol } },
   { 0,                            XF86XK_MonBrightnessUp,     spawn,  {.v = upbright} },
 	{ 0,                            XF86XK_MonBrightnessDown,   spawn,  {.v = downbright} },
+	{ 0,                            XF86XK_AudioPlay,   spawn,  {.v = toggle} },
 
   { MODKEY,                       XK_r,      setlayout,      {.v = &layouts[3]} },
   { MODKEY|ShiftMask,             XK_r,      setlayout,      {.v = &layouts[4]} },
