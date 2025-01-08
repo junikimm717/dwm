@@ -13,7 +13,7 @@ static const int smartgaps          = 0;        /* 1 means no outer gap when the
 static const unsigned int snap      = 32;       /* snap pixel */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
-static const char *fonts[]          = { "Jetbrains Mono:size=14", "nerd-fonts:size=14" };
+static const char *fonts[]          = { "Jetbrains Mono:size=14", "nerd-fonts:size=15" };
 static const char dmenufont[]       = "Jetbrains Mono:size=12";
 static const char col_gray1[]       = "#222222";
 static const char col_gray2[]       = "#444444";
@@ -60,6 +60,7 @@ static const Rule rules[] = {
 
   // social media
   { "discord",        NULL,       NULL,         1<<7,            0,           -1 },
+  { "Slack",        NULL,       NULL,         1<<3,            0,           -1 },
   { "Skype",          NULL,       NULL,         1<<3,            0,           -1 },
   { "zoom",           NULL,       NULL,         1<<3,            0,           -1 },
   { "zoom",           NULL,       "Chat",       1<<3,            1,           -1 },
@@ -77,6 +78,7 @@ static const Rule rules[] = {
 
   // Virtualization
   { "Virt-manager",   NULL,       NULL,         1<<4,            0,           -1 },
+  { NULL,             NULL,       "Emulator",   1<<4,            1,           -1 },
 
   // Music
   { "cantata",        NULL,       NULL,         1<<5,            0,           -1 },
@@ -118,8 +120,8 @@ static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() 
 //static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_darkblue, "-sf", col_gray4, NULL };
 static const char *dmenucmd[] = { "rofi", "-show", "drun" };
 //static const char *dmenucmd[] = { "rofi", "-show", "drun", NULL };
-static const char *termcmd[]  = { "/usr/bin/alacritty", NULL };
-static const char *tmuxcmd[]  = { "/usr/bin/alacritty", "-e", "/usr/bin/tmux", NULL };
+static const char *termcmd[]  = { "/usr/bin/kitty", NULL };
+static const char *tmuxcmd[]  = { "/usr/bin/kitty", "-e", "/usr/bin/tmux", NULL };
 static const char *browser[]  = { "/usr/bin/firefox", NULL };
 static const char *upvol[]   = { "/usr/bin/pactl", "set-sink-volume", "0", "+5%",     NULL };
 static const char *downvol[] = { "/usr/bin/pactl", "set-sink-volume", "0", "-5%",     NULL };
@@ -127,8 +129,8 @@ static const char *mutevol[] = { "/usr/bin/pactl", "set-sink-mute",   "0", "togg
 static const char *upbright[] = { "/usr/bin/brightnessctl", "set", "10%+" };
 static const char *downbright[] = { "/usr/bin/brightnessctl", "set", "10%-" };
 static const char *killdwm[] = {"/home/junikim/.local/bin/quit.sh", NULL};
-static const char *join[] = {"/usr/local/bin/mt", NULL};
 static const char *toggle[] = {"/usr/bin/mpc", "toggle", NULL};
+static const char *screenshot[] = {"/usr/bin/flameshot", "gui", NULL};
 
 static Key keys[] = {
   /* modifier                     key        function        argument */
@@ -136,7 +138,7 @@ static Key keys[] = {
   { MODKEY|ShiftMask,             XK_Return,  spawn,          {.v = tmuxcmd } },
   { MODKEY|ShiftMask,             XK_a,       spawn,          {.v = termcmd} },
   { MODKEY|ShiftMask,             XK_w,       spawn,          {.v = browser } },
-  { MODKEY,                       XK_e,       spawn,          {.v = join } },
+  { MODKEY|ShiftMask,             XK_s,       spawn,          {.v = screenshot } },
   { MODKEY,                       XK_b,       togglebar,      {0} },
   { MODKEY,                       XK_j,       focusstack,     {.i = +1 } },
   { MODKEY,                       XK_k,       focusstack,     {.i = -1 } },
