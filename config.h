@@ -53,6 +53,7 @@ static const Rule rules[] = {
   /* class      instance    title       tags mask     isfloating   monitor */
   //{ "Gimp",     NULL,       NULL,       0,            1,           -1 },
   { "Alacritty",      NULL,       NULL,         1<<0,            0,           -1 },
+  { "kitty",      NULL,       NULL,         1<<0,            0,           -1 },
   { "Brave-browser",  NULL,       NULL,         1<<1,            0,           -1 },
   { "Tor Browser",    NULL,       NULL,         1<<1,            0,           -1 },
   { "torbrowser",     NULL,       NULL,         1<<1,            0,           -1 },
@@ -72,6 +73,7 @@ static const Rule rules[] = {
   // Programming
   { "Code",           NULL,       NULL,         1<<2,            0,           -1 },
   { "jetbrains",      NULL,       NULL,         1<<2,            0,           -1 },
+  { "Blender",      NULL,       NULL,         1<<2,            0,           -1 },
   { "sublime",        NULL,       NULL,         1<<2,            0,           -1 },
   { "Pulsar",         NULL,       NULL,         1<<2,            0,           -1 },
   { "geogebra",         NULL,       NULL,         1<<2,            0,           -1 },
@@ -121,7 +123,7 @@ static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() 
 static const char *dmenucmd[] = { "rofi", "-show", "drun" };
 //static const char *dmenucmd[] = { "rofi", "-show", "drun", NULL };
 static const char *termcmd[]  = { "/usr/bin/kitty", NULL };
-static const char *tmuxcmd[]  = { "/usr/bin/kitty", "-e", "/usr/bin/tmux", NULL };
+static const char *tmuxcmd[]  = { "/usr/bin/kitty", "-e", "/home/junikim/go/bin/tmuxs", NULL };
 static const char *browser[]  = { "/usr/bin/firefox", NULL };
 static const char *upvol[]   = { "/usr/bin/pactl", "set-sink-volume", "0", "+5%",     NULL };
 static const char *downvol[] = { "/usr/bin/pactl", "set-sink-volume", "0", "-5%",     NULL };
